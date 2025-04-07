@@ -1,6 +1,3 @@
-# Let's create a markdown file based on the comprehensive spec.
-
-spec_content = """
 # Itinerary Planner - Developer Specification
 
 ## 1. Project Overview
