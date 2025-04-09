@@ -4,16 +4,17 @@ A comprehensive travel itinerary planning application with web and mobile interf
 
 ## Project Structure
 
-- `/backend` - Node.js/Express server with TypeScript
-- `/frontend-web` - React web application with TypeScript
-- `/frontend-mobile` - React Native (Expo) mobile application with TypeScript
+- `/app` - Main application directory
+  - `/backend` - Node.js/Express server with TypeScript
+  - `/frontend-web` - React web application with TypeScript
+  - `/frontend-mobile` - React Native (Expo) mobile application with TypeScript
 
 ## Getting Started
 
 ### Backend
 
 ```bash
-cd backend
+cd app/backend
 pnpm install
 pnpm run dev
 ```
@@ -23,7 +24,7 @@ The server will start on port 5000. Access the health check endpoint at http://l
 ### Web Frontend
 
 ```bash
-cd frontend-web
+cd app/frontend-web
 pnpm install
 pnpm start
 ```
@@ -33,7 +34,7 @@ The web application will start on port 3000. Access it at http://localhost:3000
 ### Mobile Frontend
 
 ```bash
-cd frontend-mobile
+cd app/frontend-mobile
 pnpm install
 pnpm start
 ```
