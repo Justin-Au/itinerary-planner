@@ -84,9 +84,6 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -146,11 +143,6 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
@@ -175,7 +167,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/justinau/dev/personal/itinerary-planner/backend/src/generated/prisma",
+      "value": "/Users/justinau/dev/personal/itinerary-planner/app/backend/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -189,11 +181,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/justinau/dev/personal/itinerary-planner/backend/prisma/schema.prisma",
+    "sourceFilePath": "/Users/justinau/dev/personal/itinerary-planner/app/backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
@@ -202,18 +194,17 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "postgresql",
-  "postinstall": false,
+  "activeProvider": "sqlite",
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "fromEnvVar": null,
+        "value": "file:./dev.db"
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id            String      @id @default(uuid())\n  email         String      @unique\n  password      String? // Nullable for OAuth users\n  name          String?\n  createdAt     DateTime    @default(now())\n  updatedAt     DateTime    @updatedAt\n  oauthProvider String? // e.g., \"google\", \"facebook\"\n  oauthId       String? // ID from the OAuth provider\n  itineraries   Itinerary[]\n\n  @@map(\"users\")\n}\n\nmodel Itinerary {\n  id          String   @id @default(uuid())\n  title       String\n  description String?\n  startDate   DateTime\n  endDate     DateTime\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n  userId      String\n  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  items       Item[]\n\n  @@map(\"itineraries\")\n}\n\nmodel Category {\n  id    String  @id @default(uuid())\n  name  String  @unique\n  icon  String?\n  color String?\n  items Item[]\n\n  @@map(\"categories\")\n}\n\nmodel Item {\n  id          String    @id @default(uuid())\n  name        String\n  description String?\n  date        DateTime\n  startTime   DateTime?\n  endTime     DateTime?\n  location    String?\n  notes       String?\n  createdAt   DateTime  @default(now())\n  updatedAt   DateTime  @updatedAt\n\n  // Relations\n  itineraryId String\n  itinerary   Itinerary @relation(fields: [itineraryId], references: [id], onDelete: Cascade)\n\n  categoryId String\n  category   Category @relation(fields: [categoryId], references: [id])\n\n  cost Cost?\n\n  @@map(\"items\")\n}\n\nmodel Cost {\n  id       String @id @default(uuid())\n  amount   Float\n  currency String @default(\"USD\")\n\n  // Relation to Item\n  itemId String @unique\n  item   Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)\n\n  @@map(\"costs\")\n}\n",
-  "inlineSchemaHash": "5efeeac06263553e925b2a213ce9ebb69fff3c7a6c94b2a6b7fddd8f74917a93",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:./dev.db\"\n}\n\nmodel User {\n  id            String      @id @default(uuid())\n  email         String      @unique\n  password      String? // Nullable for OAuth users\n  name          String?\n  createdAt     DateTime    @default(now())\n  updatedAt     DateTime    @updatedAt\n  oauthProvider String? // e.g., \"google\", \"facebook\"\n  oauthId       String? // ID from the OAuth provider\n  itineraries   Itinerary[]\n\n  @@map(\"users\")\n}\n\nmodel Itinerary {\n  id          String   @id @default(uuid())\n  title       String\n  description String?\n  startDate   DateTime\n  endDate     DateTime\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n  userId      String\n  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  items       Item[]\n\n  @@map(\"itineraries\")\n}\n\nmodel Category {\n  id    String  @id @default(uuid())\n  name  String  @unique\n  icon  String?\n  color String?\n  items Item[]\n\n  @@map(\"categories\")\n}\n\nmodel Item {\n  id          String    @id @default(uuid())\n  name        String\n  description String?\n  date        DateTime\n  startTime   DateTime?\n  endTime     DateTime?\n  location    String?\n  notes       String?\n  createdAt   DateTime  @default(now())\n  updatedAt   DateTime  @updatedAt\n\n  // Relations\n  itineraryId String\n  itinerary   Itinerary @relation(fields: [itineraryId], references: [id], onDelete: Cascade)\n\n  categoryId String\n  category   Category @relation(fields: [categoryId], references: [id])\n\n  cost Cost?\n\n  @@map(\"items\")\n}\n\nmodel Cost {\n  id       String @id @default(uuid())\n  amount   Float\n  currency String @default(\"USD\")\n\n  // Relation to Item\n  itemId String @unique\n  item   Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)\n\n  @@map(\"costs\")\n}\n",
+  "inlineSchemaHash": "a87622ad5064f08c5bb83c90d278f7f4a2a70da66a3459a71645c4a1c874d56a",
   "copyEngine": true
 }
 
