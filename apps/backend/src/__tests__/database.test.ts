@@ -1,17 +1,16 @@
-import { PrismaClient } from '../../src/generated/prisma';
+import { prisma } from 'db';
 import dotenv from 'dotenv';
+import path from 'path';
 
-dotenv.config();
+// Load environment variables from root .env file
+dotenv.config({ path: path.resolve(__dirname, '../../../../.env') });
 
 // Use PostgreSQL for testing
 process.env.DATABASE_URL = 'postgresql://justinau@localhost:5432/itinerary_planner?schema=public';
 process.env.NODE_ENV = 'test';
 
 describe('Database Connectivity Tests', () => {
-  let prisma: PrismaClient;
-
   beforeAll(async () => {
-    prisma = new PrismaClient();
     // Ensure we're connected
     await prisma.$connect();
   });

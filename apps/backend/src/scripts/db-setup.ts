@@ -47,7 +47,7 @@ const setupPostgres = async (): Promise<void> => {
       : '';
     
     // Make sure DATABASE_URL is set to PostgreSQL
-    const postgresUrl = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/itinerary_planner?schema=public';
+    const postgresUrl = process.env.DATABASE_URL;
     fs.writeFileSync(envPath, `DATABASE_URL="${postgresUrl}"\nACTIVE_DATABASE="postgres"\n`);
     
     // Temporarily rename the .env.temp to .env

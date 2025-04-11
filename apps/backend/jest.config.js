@@ -9,4 +9,8 @@ module.exports = {
       tsconfig: 'tsconfig.json',
     }],
   },
+  // Add moduleNameMapper to resolve monorepo packages
+  moduleNameMapper: {
+    '^db$': '<rootDir>/../../packages/db/src/index.ts',
+  },
 };
