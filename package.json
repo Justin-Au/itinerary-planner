@@ -1,0 +1,24 @@
+{
+  "name": "itinerary-planner",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/backend",
+    "apps/frontend-web",
+    "apps/frontend-mobile",
+    "packages/*"
+  ],
+  "scripts": {
+    "start:backend": "cd apps/backend && npm run start",
+    "start:web": "cd apps/frontend-web && npm run start",
+    "start:mobile": "cd apps/frontend-mobile && npm run start",
+    "dev:backend": "cd apps/backend && npm run dev",
+    "dev:web": "cd apps/frontend-web && npm run start",
+    "dev:mobile": "cd apps/frontend-mobile && npm run start",
+    "build:backend": "cd apps/backend && npm run build",
+    "build:web": "cd apps/frontend-web && npm run build",
+    "db:generate": "cd packages/db && npm run db:generate",
+    "db:push": "cd packages/db && npm run db:push",
+    "db:seed": "cd packages/db && npm run db:seed"
+  }
+}

@@ -39,3 +39,7 @@ Thumbs.db
 # Expo
 .expo/
 web-build/
+
+# Prisma
+app/backend/src/generated/
+*.db

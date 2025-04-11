@@ -1,0 +1,4 @@
+{
+  "schema": "./src/prisma/schema/schema.prisma",
+  "seed": "ts-node prisma/seed.ts"
+}
